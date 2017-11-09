@@ -7,8 +7,26 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+    <ion-item>
+        <ion-label floating>MAPS</ion-label>
+        <ion-input type="latitude" [(ngModel)]="latitude"></ion-input>
+        <ion-input type="longitude" [(ngModel)]="longitude"></ion-input>
+      </ion-item>
+      <button ion-button block clear (click)="openMaps(latitude, longitude)">Abrir Maps</button>
+  <ion-item>
+    <ion-label floating>URL</ion-label>
+    <ion-input type="url" [(ngModel)]="url"></ion-input>
+  </ion-item>
+  <button ion-button block clear (click)="openWebpage(url)">Abrir Browser</button>
+  <ion-item>
+    <ion-label floating>Telefone</ion-label>
+    <ion-input type="telefone" [(ngModel)]="telefone"></ion-input>
+  </ion-item>
+  <button ion-button block clear (click)="openCall(telefone)">Call</button>
+    <ion-list *ngFor="let hosp of hospedagens">
+      <p>teste</p>
+     
+      <div [innerHtml]="hosp.descricao | mattDamon"></div>
+     
+    </ion-list>
 </ion-content>
