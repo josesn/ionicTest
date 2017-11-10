@@ -23,10 +23,9 @@
     <ion-input type="telefone" [(ngModel)]="telefone"></ion-input>
   </ion-item>
   <button ion-button block clear (click)="openCall(telefone)">Call</button>
-    <ion-list *ngFor="let hosp of hospedagens">
-      <p>teste</p>
-     
-      <div [innerHtml]="hosp.descricao | mattDamon"></div>
-     
-    </ion-list>
+  <ion-item>
+    <ion-label>Mapa</ion-label>
+  </ion-item>
+  <button ion-button block clear (click)="getHospAll()">Abrir</button>
+  
 </ion-content>

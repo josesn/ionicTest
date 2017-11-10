@@ -1,15 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { HospedagemProvider } from '../../providers/hospedagem/hospedagem';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser';
 import { CallNumber } from '@ionic-native/call-number';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { MapsPage } from '../../pages/maps/maps';
+
+declare var google:any;
+
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  @ViewChild('map') mapRef: ElementRef;
 
   public hospedagens: any [];
 
@@ -51,19 +57,22 @@ export class HomePage {
     .subscribe(
       (hospedagens) => {
         this.hospedagens = hospedagens.lista;
+        this.navCtrl.push(MapsPage, this.hospedagens);
         
       },
       (erros) => {
         console.log('Error', erros);
       }
     )
+
+    
   }
 
 
 
   ionViewDidLoad() {
     
-    this.getHospAll();
+    console.log(this.mapRef);
     console.log('ionViewDidLoad Hospedagem');
   }
 

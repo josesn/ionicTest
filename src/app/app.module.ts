@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { MapsPage } from '../pages/maps/maps';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { CallNumber } from '@ionic-native/call-number';
@@ -22,6 +23,7 @@ import { HospedagemProvider } from '../providers/hospedagem/hospedagem';
     MyApp,
     HomePage,
     MattDamon,
+    MapsPage,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { HospedagemProvider } from '../providers/hospedagem/hospedagem';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    MapsPage,
   ],
   providers: [
     StatusBar,
