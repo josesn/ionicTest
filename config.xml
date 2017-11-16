@@ -87,4 +87,8 @@
     <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.0.7" />
     <engine name="ios" spec="~4.5.3" />
     <allow-navigation href="http://192.168.25.4:8100" />
+    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+        <variable name="APP_ID" value="284886108660414" />
+        <variable name="APP_NAME" value="Auth App" />
+    </plugin>
 </widget>

@@ -8,10 +8,13 @@ import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MapsPage } from '../pages/maps/maps';
+import { LoginPage } from '../pages/login/login';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { CallNumber } from '@ionic-native/call-number';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+
+import { Facebook } from '@ionic-native/facebook'; 
 
 
 import { MattDamon } from './pipes/matt-damon';
@@ -24,6 +27,7 @@ import { HospedagemProvider } from '../providers/hospedagem/hospedagem';
     HomePage,
     MattDamon,
     MapsPage,
+    LoginPage,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +39,7 @@ import { HospedagemProvider } from '../providers/hospedagem/hospedagem';
     MyApp,
     HomePage,
     MapsPage,
+    LoginPage,
   ],
   providers: [
     StatusBar,
@@ -44,6 +49,7 @@ import { HospedagemProvider } from '../providers/hospedagem/hospedagem';
     InAppBrowser,
     CallNumber,
     LaunchNavigator,
+    Facebook,
   ]
 })
 export class AppModule {}

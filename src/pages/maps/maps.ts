@@ -20,11 +20,16 @@ export class MapsPage {
   @ViewChild('map') mapRef: ElementRef;
   map: any;
   hospedagens = [];
+  
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.hospedagens = this.navParams.data;
     console.log(this.hospedagens);
   }
+
+
+  
 
   public displayMap() {
     let latLng = new google.maps.LatLng(-3.7317914, -38.5114384);
@@ -36,6 +41,7 @@ export class MapsPage {
         }
         this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
   }
+  
 
   public getMarkers() {
     console.log(this.hospedagens.length);
@@ -45,11 +51,30 @@ export class MapsPage {
   }
 
   public addMarkers(hospedagem) {
+    
     var position = new google.maps.LatLng(hospedagem.latitude, hospedagem.longitude);
     var HospedagemMarker = new google.maps.Marker({position: position, title: hospedagem.nome});
+    google.maps.event.addListener(HospedagemMarker, 'click', (function(HospedagemMarker) {
+      return function() {
+        var infowindow = new google.maps.InfoWindow();
+        infowindow.setContent(hospedagem.nome);        
+        infowindow.open(this.map, HospedagemMarker);
+        HospedagemMarker.setMap(this.map);
+      }
+    })(HospedagemMarker));
     console.log(hospedagem.nome);
     HospedagemMarker.setMap(this.map);
-}
+  }
+
+  
+
+
+  //public addMarkers(hospedagem) {
+    //var position = new google.maps.LatLng(hospedagem.latitude, hospedagem.longitude);
+    //var HospedagemMarker = new google.maps.Marker({position: position, title: hospedagem.nome});
+    //console.log(hospedagem.nome);
+    //HospedagemMarker.setMap(this.map);
+//}
 
 
   //public addMarker(position, map){

@@ -15,6 +15,7 @@ export class HospedagemProvider {
 
   private urlBase = 'http://localhost:8000'
   private urlHosp = '/hospedagem'
+  private urlGas = '/gastronomia'
 
   constructor(public http: Http) {
     console.log('Hello HospedagemProvider Provider');
@@ -30,6 +31,17 @@ export class HospedagemProvider {
   public dataHandler (res: Response) {
     let hosp = res.json();
     return {lista: hosp};
+  }
+
+  public getAllGastro(): Observable<any> {
+    let url = this.urlBase + this.urlGas
+    return this.http.get(url)
+            .map(this.dataHandler2)
+  }
+
+  public dataHandler2(res: Response) {
+    let gas = res.json();
+    return {lista: gas};
   }
 
 }

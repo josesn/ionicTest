@@ -1,13 +1,24 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+   
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-item>
+
+  <ion-card *ngFor="let hosp of hospedagens" text-wrap>
+    
+      <div>
+        <img src="{{'data:image/png;base64,' + hosp.foto}}">
+        <div class="div-icon" *ngIf="hosp.album && hosp.album.length">
+        <ion-icon (click)="openSlider(hosp)" name="md-images"></ion-icon>
+        </div>
+      </div> 
+   
+  </ion-card>
+  <ion-card>
+   
+  <ion-item>
         <ion-label floating>MAPS</ion-label>
         <ion-input type="latitude" [(ngModel)]="latitude"></ion-input>
         <ion-input type="longitude" [(ngModel)]="longitude"></ion-input>
@@ -26,6 +37,13 @@
   <ion-item>
     <ion-label>Mapa</ion-label>
   </ion-item>
-  <button ion-button block clear (click)="getHospAll()">Abrir</button>
+  <button ion-button block clear (click)="showCheckBox()">Abrir</button>
+  <!-- <ion-item>
+  <ion-label>Facebok</ion-label>
+  </ion-item>
+  <button ion-button block clear (click)="irPaginaLogin()">Login</button>-->
+  </ion-card>
+  <br/>
+  <div #map id="map"></div>
   
 </ion-content>
