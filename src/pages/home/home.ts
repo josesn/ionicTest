@@ -20,7 +20,8 @@ export class HomePage {
   @ViewChild('map') mapRef: ElementRef;
 
   map: any;
-
+  
+  
   public hospedagens: any [];
   public gastronomias: any [];
  
@@ -178,6 +179,17 @@ export class HomePage {
   //public irPaginaLogin() {
     //this.navCtrl.push(LoginPage);
   //}
+
+  public favoritar(id, hospedagem, index, email) {
+          console.log(id);
+          this.hosProvider.setFavorito(id, email)
+          .subscribe ((favorito) => {
+            this.hospedagens[index].valido = !this.hospedagens[index].valido;
+            console.log(this.hospedagens[index]);
+          })
+          
+    
+  }
 
 
 

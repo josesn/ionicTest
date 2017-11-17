@@ -6,14 +6,22 @@
 
 <ion-content padding>
 
-  <ion-card *ngFor="let hosp of hospedagens" text-wrap>
-    
+  <ion-card *ngFor="let hosp of hospedagens; let i = index;" text-wrap>
+      <span>{{hosp.nome}}</span>
+      
+          
+          <button class="fav" ion-button clear icon-only isActive="false" (click)="favoritar(hosp.id, hosp, i, hosp.email)">
+            <ion-icon *ngIf="!hosp.valido" name="heart-outline" style="color:#e3b04f;"></ion-icon>
+            <ion-icon *ngIf="hosp.valido" name="heart" style="color:#e3b04f;"></ion-icon>
+          </button>     
+      
       <div>
         <img src="{{'data:image/png;base64,' + hosp.foto}}">
         <div class="div-icon" *ngIf="hosp.album && hosp.album.length">
         <ion-icon (click)="openSlider(hosp)" name="md-images"></ion-icon>
         </div>
-      </div> 
+      </div>
+      
    
   </ion-card>
   <ion-card>
