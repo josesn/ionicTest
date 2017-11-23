@@ -6,22 +6,45 @@
 
 <ion-content padding>
 
-  <ion-card *ngFor="let hosp of hospedagens; let i = index;" text-wrap>
-      <span>{{hosp.nome}}</span>
+  <ion-card *ngFor="let h of hospedagens; let i = index;" text-wrap>
+      <span>{{h.nome}}</span>
       
           
-          <button class="fav" ion-button clear icon-only isActive="false" (click)="favoritar(hosp.id, hosp, i, hosp.email)">
-            <ion-icon *ngIf="!hosp.valido" name="heart-outline" style="color:#e3b04f;"></ion-icon>
-            <ion-icon *ngIf="hosp.valido" name="heart" style="color:#e3b04f;"></ion-icon>
+          <button class="fav" ion-button clear icon-only isActive="false" (click)="favoritar(h.id, i)">
+            <ion-icon *ngIf="!h.valido" name="heart-outline" style="color:#e3b04f;"></ion-icon>
+            <ion-icon *ngIf="h.valido" name="heart" style="color:#e3b04f;"></ion-icon>
           </button>     
       
-      <div>
-        <img src="{{'data:image/png;base64,' + hosp.foto}}">
-        <div class="div-icon" *ngIf="hosp.album && hosp.album.length">
-        <ion-icon (click)="openSlider(hosp)" name="md-images"></ion-icon>
+      <div class="foto">
+        <img *ngIf='!h.foto' src='assets/imgs/sem-foto.png'>
+        <img *ngIf='h.foto' src="{{'data:image/png;base64,' + h.foto}}">
+        <div class="div-icon" *ngIf="h.album && h.album.length">
+        <ion-icon (click)="openSlider(h)" name="md-images"></ion-icon>
         </div>
       </div>
-      
+
+      <ion-row class="hosp-card-row">
+        <button *ngIf="h.celular" ion-button clear icon-only>
+          <ion-icon name="call"></ion-icon>
+        </button>
+        <button *ngIf="h.email" ion-button clear icon-only>
+          <ion-icon name="mail"></ion-icon>
+        </button>
+        <button *ngIf="h.site && h.plano == 'Premium'" (click)="openWebpage(h.site)"ion-button clear icon-only>
+          <ion-icon name="md-globe"></ion-icon>
+        </button>
+        <button *ngIf="h.facebook && h.plano == 'Premium'" ion-button clear icon-only>
+          <ion-icon name="logo-facebook"></ion-icon>
+        </button>
+        <button *ngIf="h.instagram && h.plano == 'Premium'" ion-button clear icon-only>
+          <ion-icon name="logo-instagram"></ion-icon>
+        </button>
+        <button *ngIf="h.latitude && h.longitude" ion-button clear icon-only>
+          <ion-icon name="navigate"></ion-icon>
+        </button>
+        <button ion-button block clear (click)="emailForm(h)"> Solicitar </button>
+      </ion-row>
+          
    
   </ion-card>
   <ion-card>
@@ -46,6 +69,7 @@
     <ion-label>Mapa</ion-label>
   </ion-item>
   <button ion-button block clear (click)="showCheckBox()">Abrir</button>
+  <button ion-button block clear (click)="emailForm()"> Solicitar </button>
   <!-- <ion-item>
   <ion-label>Facebok</ion-label>
   </ion-item>

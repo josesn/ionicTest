@@ -91,4 +91,7 @@
         <variable name="APP_ID" value="284886108660414" />
         <variable name="APP_NAME" value="Auth App" />
     </plugin>
+    <plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
+    <plugin name="cordova-sqlite-storage" spec="^2.1.2" />
+    <plugin name="cordova-plugin-geolocation" spec="^3.0.0" />
 </widget>

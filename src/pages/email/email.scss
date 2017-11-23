@@ -1,0 +1,21 @@
+page-email {
+    .hosp-detalhe-container {
+        display: flex;
+        width: 100%;
+        margin-top: 10px;
+        align-items: center;
+        justify-content: center;
+    }
+    
+      ion-row.hosp-detalhe-header {
+        width: 90%;
+        height: auto;
+        box-shadow: -1px 2px 4px 0 rgba(90, 64, 4, 0.30);
+        border-radius: 5px;
+        border: 1px solid #ffffff;
+        background-color: #ffffff;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+    }
+}

@@ -7,6 +7,10 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { MapsPage } from '../../pages/maps/maps';
 import { LoginPage } from '../../pages/login/login';
 import { SliderPage } from '../../pages/slider/slider';
+import { Storage } from '@ionic/storage';
+import { Geolocation } from '@ionic-native/geolocation';
+import { EmailPage } from '../../pages/email/email';
+ 
 
 declare var google:any;
 
@@ -24,6 +28,9 @@ export class HomePage {
   
   public hospedagens: any [];
   public gastronomias: any [];
+  public passeios: any [];
+  public email;
+  public nome;
  
   url: string;
 
@@ -35,8 +42,12 @@ export class HomePage {
               public inApp: InAppBrowser,
               public callNumber: CallNumber,
               public launchNav: LaunchNavigator,
-              public alertCtrl: AlertController) {
+              public alertCtrl: AlertController,
+              public storage: Storage,
+              public location: Geolocation) {
 
+        this.email = "zeneto1@gmail.com";
+        this.nome = 'Jose';
   }
 
   
@@ -97,17 +108,21 @@ export class HomePage {
       zoom: 'no'
     }
 
-    const browser = this.inApp.create(url, '_self', options);
+    const browser = this.inApp.create(url, '_system', options);
   }
 
-  public openCall(telefone) {
-    this.callNumber.callNumber(telefone, true)
-    .then(() => console.log('Launched dialer!'))
-    .catch(() => console.log('Error launching dialer'));
+  public openCall(telefone) { 
+     
+    this.hosProvider.getAllPasseio()
+      .subscribe((data) => {
+        this.passeios = data.lista
+      })
+      this.storage.get('storage').then((data) => {
+        console.log(JSON.parse(data));
+      })
   }
 
   public getHospAll() {
-    
     this.hosProvider.getAllHospedagem()
     .subscribe(
       (hospedagens) => {
@@ -125,6 +140,7 @@ export class HomePage {
     .subscribe(
       (gastronomias) => {
         this.gastronomias = gastronomias.lista;
+        console.log(this.gastronomias);
         //this.getMarkers(this.gastronomias);
       },
       (erros) => {
@@ -133,15 +149,35 @@ export class HomePage {
     )
   }
 
-  public displayMap() {
-    let latLng = new google.maps.LatLng(-3.7317914, -38.5114384);
+  public getPassAll() {
+    if(this.storage.get('storage')) {
+      this.storage.get('storage').then((data) => {
+        console.log('entrei pelo storage');
+        this.passeios = JSON.parse(data)
+      })
+    } else { 
     
-        let mapOptions = {
-          center: latLng,
-          zoom: 10,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
+        console.log('entrei pelo provider');
+      
+    }
+  }
+
+  public displayMap() {
+    this.location.getCurrentPosition().then((resp) => {
+
+      let latLng = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+      
+          let mapOptions = {
+            center: latLng,
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+          }
+          this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
+          
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
+   
   }
 
   public getMarkers(selecionado) {
@@ -176,26 +212,28 @@ export class HomePage {
     this.navCtrl.push("SliderPage", hospedagem);
   }
 
+  emailForm(hospedagem) {
+    this.navCtrl.push("EmailPage", hospedagem);
+  }
+
   //public irPaginaLogin() {
     //this.navCtrl.push(LoginPage);
   //}
 
-  public favoritar(id, hospedagem, index, email) {
-          console.log(id);
-          this.hosProvider.setFavorito(id, email)
-          .subscribe ((favorito) => {
-            this.hospedagens[index].valido = !this.hospedagens[index].valido;
-            console.log(this.hospedagens[index]);
-          })
-          
-    
+  public favoritar(passeio, index) {
+    var email = this.email
+    var nome = this.nome
+    this.hosProvider.setFavorito(passeio, email, nome)
+      .subscribe ((favorito) => {
+        this.passeios[index].valido = !this.passeios[index].valido;
+        console.log(this.passeios[index]);
+      })
   }
-
 
 
   ionViewDidLoad() {
     this.getHospAll();
-    //this.displayMap();
+    this.displayMap();
     console.log(this.mapRef);
     console.log('ionViewDidLoad Hospedagem');
   }
