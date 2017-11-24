@@ -22,6 +22,7 @@ export class HospedagemProvider {
   private urlGas = '/gastronomia'
   private urlPass = '/passeio'
   private urlFav = '/favoritar/'
+  private urlCont = '/contato/'
 
   private headers: Headers;
   private options: RequestOptions;
@@ -35,7 +36,7 @@ export class HospedagemProvider {
     this.headers = new Headers();   
     this.headers.append("Accept", "application/json");
     this.headers.append('Content-Type', 'application/json');
-    this.headers.append('Authorization', `Token f75da6351f4907fa1099dd59b8b016e0d436219b`);
+    this.headers.append('Authorization', `Token b1433a579e9b6d45a6a8a19f577879266db4201f`);
     this.options = new RequestOptions({headers: this.headers});
     
   }
@@ -71,12 +72,32 @@ export class HospedagemProvider {
       
   }
 
+  setContato(nome, email, tel, entrada, saida, adulto, crianca, obs, emaildestino) {
+    console.log(nome, email, tel, entrada, saida, adulto, crianca, obs, emaildestino);
+    let params = {
+      emaildestino: emaildestino,
+      nome: nome,
+      email: email,
+      telefone: tel,
+      entrada: entrada,
+      saida: saida,
+      adulto: adulto,
+      crianca: crianca,
+      obs: obs,
+     
+      
+    }
+    let url = this.urlBase + this.urlHosp + this.urlCont
+    return this.http.post(url, params, this.options)
+      .map(this.dataHandlerPost)
+     
+      
+  }
+
   private dataHandlerPost (res: Response) {
     
     let resp = res.json()
-    let id_favorito = resp.id_favorito
-    
-    console.log(id_favorito);
+    console.log(resp);
     return resp;
     
   }

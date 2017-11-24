@@ -1,55 +1,57 @@
 <ion-content no-padding>
-    <div class="hosp-foto-principal">
-        <img *ngIf="!detalhes?.foto" src="assets/imgs/sem-foto.png" alt="sem foto principal">
-        <img *ngIf="detalhes?.foto" src="{{'data:image/png;base64,' + detalhes?.foto}}" alt="foto principal">
-    </div>
-    <div class="hosp-detalhe-container">
-      <ion-row class="hosp-detalhe-header" no-padding>
-        <ion-col align-self-center style="padding-left: 15px;">
-            {{detalhes?.nome}}
-        </ion-col>
-      </ion-row>
-    </div>
-
-    <div>
-      <br/>
-      <form (ngSubmit)="logForm()">
-        <ion-item padding>
-          <ion-label>Nome: </ion-label>
-          <ion-input type="text" [(ngModel)]="nome" name="Nome"></ion-input>
-        </ion-item>
-        <ion-item padding>
-          <ion-label>Sobrenome: </ion-label>
-          <ion-input type="text" [(ngModel)]="sobrenome" name="sobrenome"></ion-input>
-        </ion-item>
-        <ion-item padding>
-            <ion-label>Telefone: </ion-label>
-            <ion-input type="text" [(ngModel)]="telefone" name="telefone"></ion-input>
-        </ion-item>
-        <ion-item padding>
-            <ion-label>Check-in: </ion-label>
-            <ion-input type="date" [(ngModel)]="entrada" name="entrada"></ion-input>
-        </ion-item>
-        <ion-item padding>
-            <ion-label>Check-out: </ion-label>
-            <ion-input type="date" [(ngModel)]="saida" name="saida"></ion-input>
-        </ion-item>
-        <ion-item padding>
-            <ion-label>Adultos: </ion-label>
-            <ion-range min="0" max="10" step="2" [(ngModel)]="adultos" name="adultos">
-                <ion-icon small range-left name="md-person"></ion-icon>
-                <ion-icon range-right name="md-people"></ion-icon>
-            </ion-range>
-        </ion-item>
-        <ion-item padding>
-            <ion-label>Crianças: </ion-label>
-            <ion-input type="number" min="0" max="10" [(ngModel)]="crianca" name="crianca"></ion-input>
-        </ion-item>
-        <ion-item padding>
-            <ion-label>Observações: </ion-label>
-            <ion-textarea type="text" [(ngModel)]="obs" name="obs"></ion-textarea>
-        </ion-item>
-        <button ion-button type="submit"> Enviar </button>
-      </form>
-    </div>
+        <div class="hosp-foto-principal">
+            <img *ngIf="!detalhes?.foto" src="assets/imgs/sem-foto.png" alt="sem foto principal">
+            <img *ngIf="detalhes?.foto" src="{{'data:image/png;base64,' + detalhes?.foto}}" alt="foto principal">   
+        </div> 
+        <div class="hosp-detalhe-container">
+        <ion-row class="hosp-detalhe-header" no-padding>
+          <ion-col align-self-center style="padding-left: 15px;">
+              {{detalhes?.nome}}
+          </ion-col>
+        </ion-row>
+       </div>
+      
+        <form (ngSubmit)="emailForm(nome,email,telefone,entrada,saida,adulto,crianca,obs)">
+            <ion-item padding>
+                <ion-label  stacked>Nome: </ion-label>
+                <ion-input type="text" [(ngModel)]="nome" name="Nome"></ion-input>
+            </ion-item>
+            <ion-item padding>
+                <ion-label stacked>Email: </ion-label>
+                <ion-input type="email" [(ngModel)]="email" name="email"></ion-input>
+            </ion-item>
+            <ion-item padding>
+                <ion-label stacked>Telefone: </ion-label>
+                <ion-input type="tel" [(ngModel)]="telefone" name="telefone"></ion-input>
+            </ion-item>
+            <ion-item padding>
+                <ion-label stacked>Check-in: </ion-label>
+                    <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="entrada" name="entrada"></ion-datetime>
+                </ion-item>
+            <ion-item padding>
+                <ion-label stacked>Check-out: </ion-label>
+                <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="saida" name="saida"></ion-datetime>
+            </ion-item>
+            <ion-item padding>
+                <ion-label stacked>Adultos: </ion-label>
+                <ion-range pin="true" min="0" max="5" step="1" value="0" snaps="true" [(ngModel)]="adulto" name="adulto">
+                    <ion-icon small range-left name="md-person"></ion-icon>
+                    <ion-icon range-right name="md-people"></ion-icon>
+                </ion-range>
+            </ion-item>
+            <ion-item padding>
+                <ion-label stacked>Crianças: </ion-label>
+                <ion-range pin="true" min="0" max="5" step="1" snaps="true" [(ngModel)]="crianca" name="crianca">
+                        <ion-icon small range-left name="md-person"></ion-icon>
+                        <ion-icon range-right name="md-people"></ion-icon>
+                    </ion-range>
+            </ion-item>
+            <ion-item padding>
+                <ion-label stacked>Observações: </ion-label>
+                    <ion-textarea type="text" rows="10" maxLength="500" [(ngModel)]="obs" name="obs"></ion-textarea>
+            </ion-item>
+            <br/>
+            <button class="button-enviar" ion-button type="submit"> Enviar </button>
+        </form>    
 </ion-content>
+    
