@@ -32,13 +32,16 @@
                 <ion-label stacked>Check-out: </ion-label>
                 <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="saida" name="saida"></ion-datetime>
             </ion-item>
+            <span>Valor e:</span>
             <ion-item padding>
                 <ion-label stacked>Adultos: </ion-label>
-                <ion-range pin="true" min="0" max="5" step="1" value="0" snaps="true" [(ngModel)]="adulto" name="adulto">
-                    <ion-icon small range-left name="md-person"></ion-icon>
-                    <ion-icon range-right name="md-people"></ion-icon>
+                <ion-range pin="true" min="0" max="5" step="1" value="0" snaps="true" [(ngModel)]="adulto" #ctrl="ngModel" name="adulto">
+                    <ion-icon small range-left name="md-person">{{adulto}}</ion-icon>
+                    <ion-icon range-right name="md-people">{{adulto}}</ion-icon>
                 </ion-range>
+               
             </ion-item>
+           
             <ion-item padding>
                 <ion-label stacked>Crianças: </ion-label>
                 <ion-range pin="true" min="0" max="5" step="1" snaps="true" [(ngModel)]="crianca" name="crianca">
